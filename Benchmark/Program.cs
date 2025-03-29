@@ -74,13 +74,13 @@ Console.WriteLine($"newtonsoft size: {newtonsoftSize}");
 Console.WriteLine($"newtonsoft compressed size: {newtonsoftCompressedSize}");
 
 // benchmark
+Stopwatch stopwatch;
 const int runs = 1_000_000;
 Console.WriteLine();
 Console.WriteLine();
 Console.WriteLine("speed");
 Console.WriteLine();
 Console.WriteLine($"runs: {runs}");
-Stopwatch stopwatch;
 
 [MethodImpl(MethodImplOptions.NoInlining)]
 void BlackBox(object? value)
@@ -91,7 +91,7 @@ void BlackBox(object? value)
 // custom serialization
 Console.WriteLine("benchmarking custom...");
 stopwatch = Stopwatch.StartNew();
-for (int i = 0; i < runs; i++)
+for (var i = 0; i < runs; i++)
 {
     var bytes = data.Serialize();
     var copy = Data.Deserialize(bytes);
@@ -103,7 +103,7 @@ Console.WriteLine($"custom: {stopwatch.Elapsed}");
 // custom with compression
 Console.WriteLine("benchmarking custom with compression...");
 stopwatch = Stopwatch.StartNew();
-for (int i = 0; i < runs; i++)
+for (var i = 0; i < runs; i++)
 {
     var bytes = data.Serialize();
     var compressed = Compress(bytes);
@@ -117,7 +117,7 @@ Console.WriteLine($"custom with compression: {stopwatch.Elapsed}");
 // newtonsoft json
 Console.WriteLine("benchmarking newtonsoft...");
 stopwatch = Stopwatch.StartNew();
-for (int i = 0; i < runs; i++)
+for (var i = 0; i < runs; i++)
 {
     var json = JsonConvert.SerializeObject(data);
     var copy = JsonConvert.DeserializeObject<Data>(json);
@@ -129,7 +129,7 @@ Console.WriteLine($"newtonsoft: {stopwatch.Elapsed}");
 // newtonsoft json with compression
 Console.WriteLine("benchmarking newtonsoft with compression...");
 stopwatch = Stopwatch.StartNew();
-for (int i = 0; i < runs; i++)
+for (var i = 0; i < runs; i++)
 {
     var json = JsonConvert.SerializeObject(data);
     var bytes = Encoding.UTF8.GetBytes(json);
