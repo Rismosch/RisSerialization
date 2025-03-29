@@ -61,15 +61,17 @@ Console.WriteLine();
 // custom
 var customBytes = data.Serialize();
 var customSize = customBytes.Length;
-var customCompressedSize = Compress(customBytes).Length;
+var customCompressedBytes  = Compress(customBytes);
+var customCompressedSize = customCompressedBytes.Length;
 Console.WriteLine($"custom size: {customSize}");
 Console.WriteLine($"custom compressed size: {customCompressedSize}");
 
 // newtonsoft
 var newtonsoftJson = JsonConvert.SerializeObject(data);
 var newtonsoftBytes = Encoding.UTF8.GetBytes(newtonsoftJson);
+var newtonsoftCompressedBytes = Compress(newtonsoftBytes);
 var newtonsoftSize = newtonsoftBytes.Length;
-var newtonsoftCompressedSize = Compress(newtonsoftBytes).Length;
+var newtonsoftCompressedSize = newtonsoftCompressedBytes.Length;
 Console.WriteLine($"newtonsoft size: {newtonsoftSize}");
 Console.WriteLine($"newtonsoft compressed size: {newtonsoftCompressedSize}");
 

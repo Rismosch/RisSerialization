@@ -65,11 +65,11 @@ public class RisMemoryStream
         // read the bytes, by copying them to a new array
         var bytes = new byte[count];
         Array.Copy(
-            _data,     // source
-            _position, // source index
-            bytes,     // target
-            0,         // target index
-            count      // count
+            _data,
+            _position,
+            bytes,
+            0,
+            count
         );
 
         // advance the cursor
@@ -87,20 +87,20 @@ public class RisMemoryStream
             // create an array that is big enough and copy the old into the new one
             var newDataArray = new byte[requiredCapacity];
             Array.Copy(
-                _data,        // source
-                newDataArray, // target
-                _data.Length  // count
+                _data,
+                newDataArray,
+                _data.Length
             );
             _data = newDataArray;
         }
 
         // write by copying the values into the array
         Array.Copy(
-            value,       // source
-            0,           // source index
-            _data,       // target
-            _position,   // target index
-            value.Length // count
+            value,
+            0,
+            _data,
+            _position,
+            value.Length
         );
 
         // advance the cursor

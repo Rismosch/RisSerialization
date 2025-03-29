@@ -4,9 +4,11 @@ namespace Benchmark;
 
 public class Data
 {
-    private static readonly byte[] Magic = { 1, 2, 3, 4, 5 };
-    private const int Version = 42;
+    private static readonly byte[] ExpectedMagic = { 1, 2, 3, 4, 5 };
+    private const int ExpectedVersion = 42;
 
+    public byte[] Magic = ExpectedMagic;
+    public int Version = ExpectedVersion;
     public float MyNumber;
     public List<bool> ABunchOfBools;
     public string MyName;
@@ -45,10 +47,10 @@ public class Data
         var s = new RisMemoryStream(value);
 
         // magic
-        var magic = RisIO.Read(s, Magic.Length);
-        for (int i = 0; i < Magic.Length; i++)
+        var magic = RisIO.Read(s, ExpectedMagic.Length);
+        for (int i = 0; i < ExpectedMagic.Length; i++)
         {
-            var left = Magic[i];
+            var left = ExpectedMagic[i];
             var right = magic[i];
 
             if (left != right)
@@ -59,7 +61,7 @@ public class Data
 
         // version
         var version = RisIO.ReadInt(s);
-        if (version != Version)
+        if (version != ExpectedVersion)
         {
             throw new FormatException("version does not match");
         }
