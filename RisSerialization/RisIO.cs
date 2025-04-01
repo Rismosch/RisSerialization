@@ -26,6 +26,13 @@ public static class RisIO
         return result;
     }
 
+    public static byte[] ReadAt(RisMemoryStream s, FatPtr fatPtr)
+    {
+        Seek(s, fatPtr.Address, SeekFrom.Begin);
+        var result = Read(s, fatPtr.Length);
+        return result;
+    }
+
     public static FatPtr Write(RisMemoryStream s, byte[] value)
     {
         var begin = Seek(s, 0, SeekFrom.Current);
@@ -149,12 +156,5 @@ public static class RisIO
         {
             Array.Reverse(value);
         }
-    }
-
-    public static byte[] ReadAt(RisMemoryStream s, FatPtr fatPtr)
-    {
-        Seek(s, fatPtr.Address, SeekFrom.Begin);
-        var result = Read(s, fatPtr.Length);
-        return result;
     }
 }
