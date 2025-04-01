@@ -1,8 +1,6 @@
-using System.Diagnostics.CodeAnalysis;
-
 namespace RisSerialization;
 
-public struct FatPtr : IEquatable<FatPtr>
+public struct FatPtr
 {
     public int Address;
     public int Length;
@@ -46,26 +44,6 @@ public struct FatPtr : IEquatable<FatPtr>
 
     public bool IsNull()
     {
-        return Equals(new FatPtr());
-    }
-
-    public override bool Equals(object? obj)
-    {
-        if (obj is not FatPtr other)
-        {
-            return false;
-        }
-
-        return Equals(other);
-    }
-
-    public bool Equals(FatPtr other)
-    {
-        return Address == other.Address && Length == other.Length;
-    }
-
-    public override int GetHashCode()
-    {
-        return HashCode.Combine(Address, Length);
+        return Address == 0 && Length == 0;
     }
 }
